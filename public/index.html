@@ -8,6 +8,7 @@ xmlns:fb="http://ogp.me/ns/fb#" lang="en">
     <meta property="og:image" content="https://www.walldevil.com/wallpapers/a66/star-wars-landscape-laser-wallpaper-sword-red-wallpapers.jpg"/>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/style.css">
+    
     <title>RPG GAME</title>
     <style>
     .fader {
@@ -82,7 +83,7 @@ $(document).ready(function(){
         var chosenHero
         var chosenEnemy
         var charDisplay
-        // var battleArr = []
+        var battleArr = []
         // Bools
         var isHeroChosen
         var isEnemyChose
@@ -119,12 +120,25 @@ console.log($(this))
 if (isHeroChosen === false){
     $(this).addClass("fader");
     
+    //image url address stored in variable
     var url = $(this).data("image")
-    
     console.log(url)
+    // Trying to push clicked character
+    var hp = $(this).data("hp")
+    $("#characters").append(hp)
+    console.log(hp)
+
+    battleArr.push($(this))
+
+    
+    
+
     var img1 = $("<img style='width: 415px; height: 415px'>").attr("src", url)
     console.log(img1)
     $("#player-1").append(img1)
+    var playerObj1 = $(this.name).append("#battleArr")
+    var playerObj1 = $(this.hp).append("#battleArr")
+    console.log(playerObj1)
     
     
     // chosenHero = charArr[$(this).attr("value")]
@@ -250,5 +264,6 @@ initGame();
 })
 
 </script>
+<script src="script.js"></script>
 </body>
 </html>
