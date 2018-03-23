@@ -83,7 +83,9 @@ function initGame () {
     }
 }
 
+//  Try making a for loop through firebase that removes characters from charFolder-'characters' if child name != 
 
+var battleArr = []
 // PICKING CHARACTERS ------------------------------------------------------------
 
 //   ~ Player 1 ~
@@ -94,9 +96,11 @@ if (isHeroChosen === false){
 
 //  Below is where I'm stuck!
 // Push to firebase below doesn't have obj data, tried to grab obj by index in array but -1 returns for indexOf
-    var p1index = $(this).val()
-    console.log(p1index)
-    gameplay.push(charArr[p1index])
+    var p1obj = charArr[$(this).attr("value")] // gets object values
+    battleArr.push(p1obj) // works to push to battleArr as obj
+    console.log(p1obj)
+    console.log(battleArr) // returns obj
+    gameplay.push(battleArr[0])
     //image url address stored in variable
     var url = $(this).data("image")
     console.log(url)
@@ -112,9 +116,11 @@ if (isHeroChosen === false){
     else if (isEnemyChosen === false && chosenHero != charArr[$(this).attr("value")]) {
         $(this).addClass("fader");
 //  Push to Firebase below but doesn't have obj data
-        var p2index = $(this).val()
-        console.log(p2index)
-        gameplay.push(charArr[p2index])
+        var p2obj = charArr[$(this).attr("value")]
+        battleArr.push(p2obj)
+        console.log(p2obj)
+        console.log(battleArr)
+        gameplay.push(battleArr[1]) // the '1' makes this only a two player game aka it's not dynamic
         var url = $(this).data("image")
         console.log(url)
 // Player 2 Gameplay Display
