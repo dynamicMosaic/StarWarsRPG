@@ -94,8 +94,8 @@ console.log($(this))
 if (isHeroChosen === false){
     $(this).addClass("fader");
 
-//  Below is where I'm stuck!
-// Push to firebase below doesn't have obj data, tried to grab obj by index in array but -1 returns for indexOf
+
+// Pushes chosen characters to firebase w/ in separate parentfolder 'gameplay'
     var p1obj = charArr[$(this).attr("value")] // gets object values
     battleArr.push(p1obj) // works to push to battleArr as obj
     console.log(p1obj)
@@ -130,5 +130,30 @@ if (isHeroChosen === false){
         }
 
 })
+
+// Begin Move Functionalities
+
+var gameData = database.ref("/gameplay");
+
+gameData.child("/gameplay").once('value', gotUserData);
+console.log(gameData.child("/gameplay"))
+function gotUserData(snapshot){
+  snapshot.forEach(userSnapshot => {
+    var k = userSnapshot.key;
+    var h = userSnapshot.val().hp;
+    var name = userSnapshot.val().Name;
+    // var strength = userSnapshot.val().strength;
+    gameData.child("teams").child(h).once("value", teamsSnapshot => {
+      teamsSnapshot.forEach(teamSnapshot => {
+        var teamKey = teamSnapshot.key;
+        teamSnapshot.forEach(teamProp => {
+          var prop = teamProp.key;
+          var val = teamProp.val();
+          console.log(k+" "+name+" "+h+": "+teamKey+", "+prop+"="+val);
+        });
+      });
+    });
+  })
+}
 
 initGame();
